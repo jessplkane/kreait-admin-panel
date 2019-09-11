@@ -17,21 +17,17 @@ const AdminPanel = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.isUserAuthenticated,
-  user: state.user,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleLogOut: () => dispatch(logOut()),
-  handleLogIn: () => {
-    dispatch(logIn('verySafePassword', 'Mr Test'));
-  },
-});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  (state) => ({
+    isLoggedIn: state.isUserAuthenticated,
+    user: state.user,
+  }),
+  (dispatch) => ({
+    handleLogOut: () => dispatch(logOut()),
+    handleLogIn: () => {
+      dispatch(logIn('verySafePassword', 'Mr Test'));
+    },
+  }),
 )(AdminPanel);
 
 AdminPanel.propTypes = {
