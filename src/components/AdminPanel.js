@@ -1,19 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-import { logOut, logIn } from '../actions';
+import { logOut } from '../actions';
 
 const AdminPanel = (props) => {
-  const { handleLogIn } = props;
+  const { handleLogOut } = props;
 
   return (
-    <>
-      <button type="button" onClick={handleLogIn}>
-        Log In
+    <Router>
+      <button type="button" onClick={handleLogOut}>
+        Log Out
       </button>
-      <h2>hello</h2>
-    </>
+      <Link to="/admin-panel/users">Users</Link>
+      <Link to="/admin-panel/posts">Posts</Link>
+    </Router>
   );
 };
 
@@ -24,12 +26,9 @@ export default connect(
   }),
   (dispatch) => ({
     handleLogOut: () => dispatch(logOut()),
-    handleLogIn: () => {
-      dispatch(logIn('verySafePassword', 'Mr Test'));
-    },
   }),
 )(AdminPanel);
 
 AdminPanel.propTypes = {
-  handleLogIn: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired,
 };

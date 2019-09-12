@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { logIn } from '../actions';
 
-const LogIn = () => {
-  const [logInDetails, setLogInDetails] = useState({});
+const LogIn = ({ handleLogIn, location }) => {
+  const [logInDetails, setLogInDetails] = useState({
+    username: '',
+    password: '',
+  });
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
-  const handleDetailsInput = (e) => {
+  const handleDetailsInput = (key, e) => {
     const { value } = e.target;
 
-    setLogInDetails(...logInDetails, value);
+    setLogInDetails({ ...logInDetails, [key]: value });
   };
+
+  const handleLogInSubmit = () => {
+    // TODO: Add validation
+    handleLogIn();
+    setRedirectToReferrer(true);
+  };
+
+  const { from } = location.state || { from: { pathname: '/' } };
+
+  if (redirectToReferrer) return <Redirect to={from} />;
 
   return (
     <div>
@@ -18,13 +34,16 @@ const LogIn = () => {
         <input
           type="text"
           placeholder="Username"
-          onChange={handleDetailsInput}
+          onChange={(e) => handleDetailsInput('username', e)}
         />
         <input
           type="text"
           placeholder="Password"
-          onChange={handleDetailsInput}
+          onChange={(e) => handleDetailsInput('password', e)}
         />
+        <button type="button" onClick={handleLogInSubmit}>
+          Log In
+        </button>
       </form>
     </div>
   );
@@ -36,7 +55,28 @@ export default connect(
   }),
   (dispatch) => ({
     handleLogIn: () => {
-      dispatch(logIn('verySafePassword', 'Mr Test'));
+      dispatch(logIn({ username: '123', password: '456' }));
     },
   }),
 )(LogIn);
+
+LogIn.propTypes = {
+  handleLogIn: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      from: PropTypes.shape({
+        pathname: PropTypes.string,
+      }),
+    }),
+  }),
+};
+
+LogIn.defaultProps = {
+  location: {
+    state: {
+      from: {
+        pathname: '/',
+      },
+    },
+  },
+};

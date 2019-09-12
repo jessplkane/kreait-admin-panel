@@ -1,10 +1,9 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
-export const logIn = (password, username) => ({
+export const logIn = (logInDetails) => ({
   type: LOGIN,
-  password,
-  username,
+  logInDetails,
 });
 
 export const logOut = () => ({ type: LOGOUT });

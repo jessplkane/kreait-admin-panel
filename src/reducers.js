@@ -9,8 +9,8 @@ const adminPanel = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
       if (
-        action.password === 'verySafePassword'
-        && action.username === 'Mr Test'
+        action.logInDetails.password === '456'
+        && action.logInDetails.username === '123'
       ) {
         return {
           ...state,
