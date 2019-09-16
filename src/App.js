@@ -1,9 +1,11 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import adminPanel from './reducers';
+import rootReducer from './reducers';
 import './App.css';
 import AdminPanel from './components/AdminPanel';
 import LogIn from './components/LogIn';
@@ -11,7 +13,12 @@ import Users from './components/Users';
 import Posts from './components/Posts';
 import PrivateRoute from './components/PrivateRoute';
 
-const store = createStore(adminPanel);
+const loggerMiddleware = createLogger();
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware, loggerMiddleware)
+);
 
 function App() {
   return (

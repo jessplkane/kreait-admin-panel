@@ -8,7 +8,7 @@ import { logIn } from '../actions';
 const LogIn = ({ handleLogIn, location }) => {
   const [logInDetails, setLogInDetails] = useState({
     username: '',
-    password: '',
+    password: ''
   });
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
@@ -34,12 +34,12 @@ const LogIn = ({ handleLogIn, location }) => {
         <input
           type="text"
           placeholder="Username"
-          onChange={(e) => handleDetailsInput('username', e)}
+          onChange={e => handleDetailsInput('username', e)}
         />
         <input
           type="text"
           placeholder="Password"
-          onChange={(e) => handleDetailsInput('password', e)}
+          onChange={e => handleDetailsInput('password', e)}
         />
         <button type="button" onClick={handleLogInSubmit}>
           Log In
@@ -50,14 +50,14 @@ const LogIn = ({ handleLogIn, location }) => {
 };
 
 export default connect(
-  (state) => ({
-    isUserLoggedIn: state.isUserAuthenticated,
+  state => ({
+    isUserLoggedIn: state.auth.isUserAuthenticated
   }),
-  (dispatch) => ({
+  dispatch => ({
     handleLogIn: () => {
       dispatch(logIn({ username: '123', password: '456' }));
-    },
-  }),
+    }
+  })
 )(LogIn);
 
 LogIn.propTypes = {
@@ -65,18 +65,18 @@ LogIn.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       from: PropTypes.shape({
-        pathname: PropTypes.string,
-      }),
-    }),
-  }),
+        pathname: PropTypes.string
+      })
+    })
+  })
 };
 
 LogIn.defaultProps = {
   location: {
     state: {
       from: {
-        pathname: '/',
-      },
-    },
-  },
+        pathname: '/'
+      }
+    }
+  }
 };

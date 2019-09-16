@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import { logOut } from '../actions';
 
-const AdminPanel = (props) => {
+const AdminPanel = props => {
   const { handleLogOut } = props;
 
   return (
@@ -20,15 +20,15 @@ const AdminPanel = (props) => {
 };
 
 export default connect(
-  (state) => ({
-    isLoggedIn: state.isUserAuthenticated,
-    user: state.user,
+  state => ({
+    isLoggedIn: state.auth.isUserAuthenticated,
+    user: state.user
   }),
-  (dispatch) => ({
-    handleLogOut: () => dispatch(logOut()),
-  }),
+  dispatch => ({
+    handleLogOut: () => dispatch(logOut())
+  })
 )(AdminPanel);
 
 AdminPanel.propTypes = {
-  handleLogOut: PropTypes.func.isRequired,
+  handleLogOut: PropTypes.func.isRequired
 };

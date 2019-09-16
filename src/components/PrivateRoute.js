@@ -22,17 +22,10 @@ const PrivateRoute = ({ component: Component, isUserLoggedIn, ...rest }) => (
 );
 
 export default connect(state => ({
-  isUserLoggedIn: state.isUserAuthenticated
+  isUserLoggedIn: state.auth.isUserAuthenticated
 }))(PrivateRoute);
 
 PrivateRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
-  isUserLoggedIn: PropTypes.bool.isRequired,
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      from: PropTypes.shape({
-        pathname: PropTypes.string
-      })
-    })
-  }).isRequired
+  isUserLoggedIn: PropTypes.bool.isRequired
 };
