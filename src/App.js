@@ -9,8 +9,6 @@ import rootReducer from './reducers';
 import './App.css';
 import AdminPanel from './components/AdminPanel';
 import LogIn from './components/LogIn';
-import Users from './components/Users';
-import Posts from './components/Posts';
 import PrivateRoute from './components/PrivateRoute';
 
 const loggerMiddleware = createLogger();
@@ -26,8 +24,6 @@ function App() {
       <div className="App">
         <Router>
           <Route path="/login" component={LogIn} />
-          <Route path="/admin-panel/users" component={Users} />
-          <Route path="/admin-panel/posts" component={Posts} />
           <PrivateRoute path="/admin-panel" component={AdminPanel} />
         </Router>
       </div>

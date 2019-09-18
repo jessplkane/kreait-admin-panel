@@ -1,25 +1,45 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-import { fetchUsers } from '../actions';
+const Users = ({ posts, ...props }) => {
+  const users = Object.values(props.users);
 
-const Users = ({ users, handleFetchUsers }) => {
-  useEffect(() => {
-    handleFetchUsers();
-  }, [handleFetchUsers]);
+  const getPostCount = userId => {
+    return posts.filter(post => {
+      return post.userId === userId;
+    }).length;
+  };
 
   return (
-    <div>
-      <p>Users</p>
-    </div>
+    users.length > 0 && (
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Posts Count</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {users.map(user => {
+              return (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>{getPostCount(user.id)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
   );
 };
 
-export default connect(
-  state => ({
-    users: state.usersById
-  }),
-  dispatch => ({
-    handleFetchUsers: () => dispatch(fetchUsers())
-  })
-)(Users);
+export default Users;
