@@ -6,10 +6,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import rootReducer from './reducers';
-import './App.css';
 import AdminPanel from './components/AdminPanel';
 import LogIn from './components/LogIn';
 import PrivateRoute from './components/PrivateRoute';
+
+import './App.scss';
 
 const loggerMiddleware = createLogger();
 

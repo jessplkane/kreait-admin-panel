@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
 import { logOut, fetchPosts, fetchUsers } from '../actions';
 
 import Users from './Users';
 import Posts from './Posts';
+
+import './AdminPanel.scss';
 
 const AdminPanel = ({
   handleLogOut,
@@ -25,15 +27,30 @@ const AdminPanel = ({
 
   return (
     <Router>
-      <header>
-        <Link to="/admin-panel/users">Users</Link>
-        <Link to="/admin-panel/posts">Posts</Link>
+      <header className="AdminPanel__header">
+        <nav className="AdminPanel__nav">
+          <NavLink
+            className="AdminPanel__nav"
+            activeClassName="AdminPanel__nav--active"
+            to="/admin-panel/users"
+          >
+            Users
+          </NavLink>
+          <NavLink
+            className="AdminPanel__nav"
+            activeClassName="AdminPanel__nav--active"
+            to="/admin-panel/posts"
+          >
+            Posts
+          </NavLink>
+        </nav>
+
         <button type="button" onClick={handleLogOut}>
           Log Out
         </button>
       </header>
 
-      <main>
+      <main className="AdminPanel__container">
         <Route
           path="/admin-panel/users"
           render={() => <Users users={users} posts={posts} />}

@@ -1,0 +1,44 @@
+.AdminPanel {
+  &__header {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #000;
+    font-weight: bold;
+  }
+
+  &__nav {
+    text-decoration: none;
+    color: #000;
+
+    &:nth-child(2) {
+      margin-left: 20px;
+    }
+
+    &--active {
+      text-decoration: underline;
+    }
+  }
+
+  &__container {
+    margin-top: 20px;
+
+    table {
+      width: 100%;
+      border: 2px solid #000;
+      border-collapse: collapse;
+      text-align: left;
+
+      td {
+        padding: 5px;
+      }
+
+      thead {
+        tr {
+          background-color: darkgray;
+        }
+      }
+    }
+  }
+}
